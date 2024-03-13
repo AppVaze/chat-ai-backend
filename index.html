@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send Data to PHP Script</title>
+</head>
+<body>
+
+<h2>Send Data to PHP Script</h2>
+
+<button type="button" onclick="sendData()">Send Data</button>
+
+<script>
+function sendData() {
+    // Define constant data
+    var requestData = {
+        history: [
+            {
+                title: "History Title 1",
+                createdAt: "2024-03-13T12:00:00"
+            }
+        ],
+        uuid: "23435113142"
+    };
+
+    // Convert data to JSON
+    var jsonData = JSON.stringify(requestData);
+
+    // Send data via fetch
+    fetch('http://localhost/Chat%20Ai/post_history.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        alert("Data sent successfully!");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while sending data!");
+    });
+}
+</script>
+
+</body>
+</html>
